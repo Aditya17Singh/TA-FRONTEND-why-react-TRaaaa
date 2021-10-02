@@ -10,10 +10,19 @@ function handleChange(event) {
   createUI(allMovies);
 }
 
+function handleDelete(event) {
+  let id = event.target.dataset.id;
+  allMovies.splice(id, 1);
+  createUI(allMovies);
+}
+
 function createUI(allMovies) {
   root.innerHTML = "";
   allMovies.forEach((elm, i) => {
     let li = document.createElement("li");
+    let label = document.createElement("label");
+    label.for = i;
+    label.innerText = elm.name;
     let button = document.createElement("button");
     button.classList.add("watch");
     if (elm.watched === true) {
@@ -23,11 +32,11 @@ function createUI(allMovies) {
     }
     button.addEventListener("click", handleChange);
     button.setAttribute("data-id", i);
-    // button.innerText = elm.watched;
-    let label = document.createElement("label");
-    label.for = i;
-    label.innerText = elm.name;
-    li.append(label, button);
+    let del = document.createElement("button");
+    del.innerText = "Remove";
+    del.addEventListener("click", handleDelete);
+    del.setAttribute("data-id", i);
+    li.append(label, button, del);
     root.append(li);
   });
 }
