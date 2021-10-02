@@ -4,36 +4,26 @@ let li = document.querySelector("li");
 
 let allMovies = [];
 
-input.addEventListener("keyup", (event) => {
-  //Adding a Movie
-  if (event.keyCode === 13 && event.target.value) {
-    allMovies.push({
-      name: event.target.value,
-      watched: "To watch",
-    });
-    event.target.value = "";
-    createUI();
-  }
-});
+function handleChange(event) {
+  let id = event.target.dataset.id;
+  allMovies[id].watched = !allMovies[id].watched;
+  createUI(allMovies);
+}
 
-function createUI(data = allMovies) {
+function createUI(allMovies) {
   root.innerHTML = "";
-  data.forEach((elm, i) => {
+  allMovies.forEach((elm, i) => {
     let li = document.createElement("li");
     let button = document.createElement("button");
     button.classList.add("watch");
-    button.addEventListener("click", (event) => {
-      let id = event.target.dataset.id;
-      if (allMovies[id].watched === "To watch") {
-        allMovies[id].watched = "watched";
-        button.innerText = elm.watched;
-      } else if (allMovies[id].watched === "watched") {
-        allMovies[id].watched = "To watch";
-        button.innerText = elm.watched;
-      }
-    });
+    if (elm.watched === true) {
+      button.innerText = "watched";
+    } else {
+      button.innerText = "To watch";
+    }
+    button.addEventListener("click", handleChange);
     button.setAttribute("data-id", i);
-    button.innerText = elm.watched;
+    // button.innerText = elm.watched;
     let label = document.createElement("label");
     label.for = i;
     label.innerText = elm.name;
@@ -41,4 +31,17 @@ function createUI(data = allMovies) {
     root.append(li);
   });
 }
-createUI();
+
+input.addEventListener("keyup", (event) => {
+  //Adding a Movie
+  if (event.keyCode === 13 && event.target.value) {
+    allMovies.push({
+      name: event.target.value,
+      watched: false,
+    });
+    event.target.value = "";
+    createUI(allMovies);
+  }
+});
+
+createUI(allMovies);
