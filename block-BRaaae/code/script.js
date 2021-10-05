@@ -14,30 +14,6 @@ input.addEventListener("keyup", (event) => {
   }
 });
 
-// function elme(type, attri = {}, ...children) {
-//   let element = document.createElement(type);
-//   for (key in attri) {
-//     if (key.startsWith("data-")) {
-//       element.setAttribute(key, attri[key]);
-//     } else if (key.startsWith("on")) {
-//       let eventType = key.replace("on", "").toLowerCase();
-//       element.addEventListener(eventType, attri[key]);
-//     } else {
-//       element[key] = attri[key];
-//     }
-//   }
-//   children.forEach((child) => {
-//     if (typeof child === "object") {
-//       element.append(child);
-//     }
-//     if (typeof child === "string") {
-//       let node = document.createTextNode(child);
-//       element.append(node);
-//     }
-//   });
-//   return element;
-// }
-
 function handleChange(event) {
   let id = event.target.dataset.id;
   allMovies[id].watched = !allMovies[id].watched;
@@ -51,24 +27,47 @@ function handleDelete(event) {
 }
 
 function createUI(allMovies) {
-  // root.innerHTML = "";
   let ui = allMovies.map((elm, i) => {
-    let li = React.createElement(
+    return React.createElement(
       "li",
-      {},
-      React.createElement("label", { for: i }, elm.name),
+      { key: i },
+      React.createElement("label", { htmlFor: i }, elm.name),
       React.createElement(
         "button",
-        { className: "watch", "data-id": i, onclick: handleChange },
+        {
+          className: "watch",
+          "data-id": i,
+          onClick: handleChange,
+        },
         elm.watched ? "watched" : "To watch"
       ),
       React.createElement(
         "button",
-        { "data-id": i, onclick: handleDelete },
+        { "data-id": i, onClick: handleDelete },
         "Remove"
       )
     );
-    return li;
   });
   ReactDOM.render(ui, root);
 }
+
+// function createUI(allMovies) {
+//   let ui = allMovies.map((elm, i) => {
+//     return React.createElement(
+//       "li",
+//       { key: i },
+//       React.createElement("label", { htmlFor: i }, elm.name),
+//       React.createElement(
+//         "button",
+//         { className: "watch", "data-id": i, onClick: handleChange },
+//         elm.watched ? "watched" : "To watch"
+//       ),
+//       React.createElement(
+//         "button",
+//         { "data-id": i, onClick: handleDelete },
+//         "Remove"
+//       )
+//     );
+//   });
+//   ReactDOM.render(ui, root);
+// }
