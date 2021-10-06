@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie-Watch-List</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Movie Watch List</h1>
+    </header>
+    <main>
+      <section>
+        <div class="container watch-list">
+          <input type="text" placeholder="Enter Movie Names" />
+          <ul class="movies-list"></ul>
+        </div>
+      </section>
+    </main>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      let root = document.querySelector(".movies-list");
+      let input = document.querySelector("input");
+
+      let allMovies = [];
+
+      input.addEventListener("keyup", (event) => {
+        if (event.keyCode === 13 && event.target.value) {
+          allMovies.push({
+            name: event.target.value,
+            watched: false,
+          });
+          event.target.value = "";
+          createUI(allMovies);
+        }
+      });
+
+      function handleChange(event) {
+        let id = event.target.dataset.id;
+        allMovies[id].watched = !allMovies[id].watched;
+        createUI(allMovies);
+      }
+
+      function handleDelete(event) {
+        let id = event.target.dataset.id;
+        allMovies.splice(id, 1);
+        createUI(allMovies);
+      }
+
+      function createUI(allMovies) {
+        let ui = allMovies.map((elm, i) => {
+          return (
+            <li>
+              <label>{elm.name}</label>
+              <button className="watch" data-id={i} onClick={handleChange}>
+                {elm.watched ? "watched" : "To watch"}
+              </button>
+              <button data-id={i} onClick={handleDelete}>
+                {"Remove"}
+              </button>
+            </li>
+          );
+        });
+        ReactDOM.render(ui, root);
+      }
+    </script>
+  </body>
+</html>
