@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article Card Using JSX</title>
+  </head>
+  <link rel="stylesheet" href="./style.css" />
+  <script
+    src="https://kit.fontawesome.com/508c3a88fa.js"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <body>
+    <header>
+      <h3>All Articles</h3>
+      <h4>Collections of best articles on Startups</h4>
+    </header>
+    <div class="container flex" id="root"></div>
+    ;
+    <script type="text/babel">
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      let Card = (props) => {
+        return (
+          <>
+            <div className="cardInfo">
+              <div className="flex-30 card">
+                <img src={props.imageURL} className="width-100" />
+                <p className="category">{props.category}</p>
+                <div className="date">
+                  <div>{props.date.getDate()}</div>
+                  <div>{monthNames[props.date.getMonth()].slice(0, 3)}</div>
+                </div>
+                <h1>{props.title}</h1>
+                <h2>{props.subTitle}</h2>
+                <p>{props.description}</p>
+                <span>
+                  <a href="#">
+                    <i className="fas fa-comments"></i>
+                    {props.comments}
+                    Comments
+                  </a>
+                </span>
+              </div>
+            </div>
+          </>
+        );
+      };
+      let cardInfo = (
+        <>
+          <Card
+            title="City Lights in New York"
+            date={new Date("2017-03-26")}
+            comments={67}
+            subTitle="The city that never sleeps."
+            description="New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers."
+            category="Photos"
+            imageURL="https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+          />
+          <Card
+            title="City Lights in New York"
+            date={new Date("2017-03-26")}
+            comments={67}
+            subTitle="The city that never sleeps."
+            description="New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers."
+            category="Photos"
+            imageURL="https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+          />
+          <Card
+            title="City Lights in New York"
+            date={new Date("2017-03-26")}
+            comments={67}
+            subTitle="The city that never sleeps."
+            description="New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers."
+            category="Photos"
+            imageURL="https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60"
+          />
+        </>
+      );
+      ReactDOM.render(cardInfo, document.getElementById("root"));
+    </script>
+  </body>
+</html>
