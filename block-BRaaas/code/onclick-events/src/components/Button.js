@@ -10,9 +10,6 @@ function handleChangeb() {
   alert("React and ReactDOM works together");
   alert("Babel helps in writing JSX");
 }
-function handleChangeButton(name) {
-  alert(`Hello ${name}`);
-}
 
 // class Button extends React.Component {
 //   render() {
@@ -29,11 +26,7 @@ function handleChangeButton(name) {
 //       </>
 //     );
 //   }
-// }
-
-function handle(value) {
-  alert(`${value}`);
-}
+// }  
 
 function Buttons() {
   return (
@@ -49,19 +42,24 @@ function Buttons() {
 function Fruits(props) {
   return (
     <>
-      <button onClick={() => handle(props.value)}>{props.value}</button>
+      <button onClick={() => alert(`${props.value}`)}>{props.value}</button>
     </>
   );
 }
 
 function Button() {
+  let names = ["Arya", "Bran", "John"];
   return (
     <>
       <button onClick={handleChange}>Click Me</button>
       <button onClick={handleChangeb}>How can I help you?</button>
-      <button onClick={() => handleChangeButton("Arya")}>Arya</button>
-      <button onClick={() => handleChangeButton("John")}>John</button>
-      <button onClick={() => handleChangeButton("Bran")}>Bran</button>
+      {names.map((name) => {
+        return (
+          <button key={name} onClick={() => alert(`Hello ${name}`)}>
+            {name}
+          </button>
+        );
+      })}
     </>
   );
 }
