@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       {Object.keys(color).map((elm, i) => (
-        <Colors info={elm} index={i} />
+        <Colors info={elm} />
       ))}
     </>
   );
@@ -15,11 +15,11 @@ function Colors(props) {
   return (
     <>
       <section>
-        <div className="color">
-          <div>{props.info}</div>
+        <div className="color container">
+          <div>{props.info.toUpperCase()}</div>
           {color[props.info].map((e, i) => (
             <>
-              <div className="container">
+              <div>
                 <div
                   className="margin"
                   style={{
@@ -29,7 +29,7 @@ function Colors(props) {
                   }}
                 ></div>
                 <div className="color">
-                  <div>{i ? i*100: 50}</div>
+                  <div>{i === 0 ? 50 : i*100}</div>
                   <div>{e}</div>
                 </div>
               </div>
@@ -42,4 +42,3 @@ function Colors(props) {
 }
 
 export default App;
-
